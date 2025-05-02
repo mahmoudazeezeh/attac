@@ -1,60 +1,242 @@
- <!-- index.html -->
- <!DOCTYPE html>
- <html lang="ar">
- <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>موقعي الشخصي</title>
-   <link rel="stylesheet" href="main.css">
- </head>
- <body>
-   <!-- Header Section -->
-   <header>
-     <nav>
-       <ul>
-         <li><a href="#home">الرئيسية</a></li>
-         <li><a href="#works">أعمالي</a></li>
-         <li><a href="#contact">اتصل بي</a></li>
-       </ul>
-     </nav>
-   </header>
- 
-   <!-- Main Content Section -->
-   <main>
-     <!-- Home Section -->
-     <section id="home">
-       <h1>مرحباً بك في موقعي الشخصي</h1>
-       <p>أنا [اسمك]، صانع محتوى ومتخصص في [مجالك]</p>
-     </section>
- 
-     <!-- Works Section -->
-     <section id="works">
-       <h1>أعمالي</h1>
-       <ul>
-         <li>
-           <a href="[رابط العمل الأول]">العمل الأول</a>
-           <p>وصف العمل الأول</p>
-         </li>
-         <li>
-           <a href="[رابط العمل الثاني]">العمل الثاني</a>
-           <p>وصف العمل الثاني</p>
-         </li>
-         <!-- أضف أعمالك الأخرى هنا -->
-       </ul>
-     </section>
- 
-     <!-- Contact Section -->
-     <section id="contact">
-       <h1>اتصل بي</h1>
-       <p>إذا كنت تريد التواصل معي، يمكنك إرسال رسالة إلى [البريد الإلكتروني] أو الاتصال بي على [رقم الهاتف]</p>
-     </section>
-   </main>
- 
-   <!-- Footer Section -->
-   <footer>
-     <p>&copy; 2023 [اسمك]</p>
-   </footer>
- 
-   <script src="script.js"></script>
- </body>
- </html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري التحميل...</title>
+    <!-- تضمين مكتبة SweetAlert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* === CSS Code Starts Here === */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a; /* خلفية داكنة */
+            color: #e0e0e0; /* لون نص فاتح */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* لمنع ظهور شرائط التمرير أثناء التحميل */
+            margin: 0; /* إزالة الهوامش الافتراضية للجسم */
+        }
+
+        #loading-container, #hacked-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%; /* للتأكد من أنها تأخذ العرض الكامل المتاح */
+        }
+
+        /* --- Loader Animation --- */
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading-container p {
+            font-size: 1.1em;
+            color: #b0b0b0;
+            margin: 5px 0;
+        }
+
+        /* --- Hacked Message Styling --- */
+        #hacked-message h1 {
+            color: #ff4d4d; /* لون أحمر للتحذير */
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        #hacked-message p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            max-width: 90%;
+            line-height: 1.6;
+        }
+        /* تنسيق اسم الجهاز المكتشف */
+        #hacked-message .device-name, .swal2-html-container .device-name {
+            color: #f1c40f; /* لون أصفر/ذهبي */
+            font-weight: bold;
+        }
+
+        #hacked-message .joke {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #2ecc71; /* لون أخضر للمزحة */
+            font-weight: bold;
+        }
+
+        /* تعديلات بسيطة للشاشات الصغيرة جداً */
+        @media (max-width: 400px) {
+            #hacked-message h1 {
+                font-size: 1.8em;
+            }
+            #hacked-message p {
+                font-size: 1em;
+            }
+        }
+         /* --- SweetAlert2 Custom Styling (Optional) --- */
+        .swal2-popup {
+          font-size: 1.1rem !important;
+          background-color: #2c2c2c !important;
+          color: #e0e0e0 !important;
+        }
+        .swal2-title {
+         color: #ff4d4d !important;
+        }
+        .swal2-html-container {
+           color: #e0e0e0 !important;
+           line-height: 1.8 !important; /* تحسين قراءة النص في التنبيه */
+        }
+        .swal2-timer-progress-bar {
+          background: #3498db !important;
+        }
+        /* === CSS Code Ends Here === */
+    </style>
+</head>
+<body>
+
+    <!-- === HTML Content Starts Here === -->
+    <div id="loading-container">
+        <div class="loader"></div>
+        <p>جاري فحص الجهاز والاتصال بالخوادم...</p>
+        <p>الرجاء الانتظار...</p>
+    </div>
+
+    <div id="hacked-message" style="display: none;">
+        <h1>!!! تم الاختراق بنجاح !!!</h1>
+        <!-- سيتم تحديث هذا النص بواسطة JavaScript -->
+        <p id="device-info-p">لقد تمكنا من الوصول إلى جميع بياناتك الشخصية والحساسة على <span class="device-name">جهازك</span>.</p>
+        <p>صورك، جهات اتصالك، سجلات المكالمات، الرسائل، بيانات التطبيقات، وحتى كلمات المرور المحفوظة... كل شيء أصبح تحت سيطرتنا الآن!</p>
+   
+    </div>
+    <!-- === HTML Content Ends Here === -->
+
+    <script>
+        // === JavaScript Code Starts Here ===
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Device Detection Logic ---
+            function getDeviceName() {
+                const ua = navigator.userAgent || navigator.vendor || window.opera;
+                const uaLower = ua.toLowerCase();
+                let device = "جهازك"; // Default
+
+                if (/windows phone/i.test(ua)) {
+                    device = "جهاز Windows Phone الخاص بك";
+                } else if (/android/i.test(ua)) {
+                    // محاولة الحصول على الموديل إن أمكن (قد لا يكون دقيقًا دائمًا)
+                    let modelMatch = uaLower.match(/;\s?([^;]+)\s?build\//);
+                    if (modelMatch && modelMatch.length > 1) {
+                       // تجنب عرض معلومات غير مفيدة أو طويلة جدًا
+                       let potentialModel = modelMatch[1].trim();
+                       if (potentialModel.length < 30 && !potentialModel.includes(')')) { // فلترة بسيطة
+                           device = `جهاز Android (${potentialModel}) الخاص بك`;
+                       } else {
+                            device = "جهاز Android الخاص بك";
+                       }
+                    } else {
+                         device = "جهاز Android الخاص بك";
+                    }
+                } else if (/ipad|iphone|ipod/i.test(ua) && !window.MSStream) {
+                    // تحديد نوع جهاز Apple
+                     if (/iphone/i.test(ua)) {
+                         device = "جهاز iPhone الخاص بك";
+                     } else if (/ipad/i.test(ua)) {
+                         device = "جهاز iPad الخاص بك";
+                     } else if (/ipod/i.test(ua)) {
+                         device = "جهاز iPod الخاص بك";
+                     } else {
+                         device = "جهاز Apple الخاص بك"; // fallback
+                     }
+                } else if (/win/i.test(navigator.platform)) {
+                    device = "جهاز الكمبيوتر (Windows) الخاص بك";
+                } else if (/mac/i.test(navigator.platform)) {
+                    device = "جهاز Mac الخاص بك";
+                } else if (/linux/i.test(navigator.platform) && !/android/i.test(ua)) { // تأكد أنه ليس أندرويد
+                    device = "جهاز Linux الخاص بك";
+                }
+                // يمكنك إضافة المزيد من الشروط هنا لأجهزة أخرى إذا أردت
+                // مثل: BlackBerry, Samsung Smart TV, PlayStation, etc.
+
+                return device;
+            }
+
+            const detectedDeviceName = getDeviceName();
+            // --- End of Device Detection Logic ---
+
+
+            // الحصول على العناصر من الـ HTML
+            const loadingContainer = document.getElementById('loading-container');
+            const hackedMessage = document.getElementById('hacked-message');
+            const deviceInfoParagraph = document.getElementById('device-info-p'); // الحصول على الفقرة لتحديثها
+
+            // تحديث نص الفقرة في الصفحة باسم الجهاز المكتشف
+            deviceInfoParagraph.innerHTML = `لقد تمكنا من الوصول إلى جميع بياناتك الشخصية والحساسة على <span class="device-name">${detectedDeviceName}</span>.`;
+
+
+            // تحديد مدة الانتظار (بالمللي ثانية) قبل إظهار رسالة الاختراق
+            const loadingDelay = 5000; // 5 ثواني
+
+            // استخدام setTimeout لتأخير تنفيذ الكود
+            setTimeout(() => {
+                // إخفاء شاشة التحميل
+                loadingContainer.style.display = 'none';
+
+                // إظهار رسالة الاختراق في الصفحة
+                hackedMessage.style.display = 'flex';
+
+                // تغيير عنوان الصفحة
+                document.title = '!!! تم الاختراق !!!';
+
+                // إظهار تنبيه SweetAlert2 المؤقت مع اسم الجهاز
+                let timerInterval;
+                Swal.fire({
+                  //icon: 'warning',
+                  title: ' تحذير أمني خطير!',
+                  // استخدام اسم الجهاز المكتشف في رسالة التنبيه
+                  html: `تم اختراق <span class="device-name">${detectedDeviceName}</span> بالكامل! <br> تم سحب جميع البيانات بنجاح.<br><br>
+                         
+                         سيغلق هذا التنبيه خلال <b></b> ميلي ثانية.`,
+                  timer: 8000, // 8 ثواني
+                  timerProgressBar: true,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                  didOpen: () => {
+                    Swal.showLoading(Swal.getDenyButton());
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                       if (Swal.getTimerLeft()){
+                          timer.textContent = `${Swal.getTimerLeft()}`;
+                       } else {
+                          clearInterval(timerInterval);
+                       }
+                    }, 100);
+                  },
+                  willClose: () => {
+                    clearInterval(timerInterval);
+                  }
+                }).then((result) => {
+                  if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('Alert closed by timer');
+                  }
+                });
+
+            }, loadingDelay);
+        });
+        // === JavaScript Code Ends Here ===
+    </script>
+</body>
+</html>
